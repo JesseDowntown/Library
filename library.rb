@@ -9,7 +9,7 @@ class Library
 
   def list_books
     @books.each do |book|
-      puts "#{book.title} by #{book.author}"
+      puts "#{book.title} by #{book.author}, status: #{book.status}"
     end
   end
 
@@ -27,15 +27,21 @@ class Library
   end
 
   def check_out(user, book)
-  if user.borrowed_books.length == 2
-    return "You already have 2 books checked-out, please return a book first."
-  end
-  if book.status = "available"
-     book.borrower = user
-     book.status = "checked-out"
-     return
-   puts "The book #{book.title} is now checked out."
-   
+
+    if user.borrowed_books.length == 2
+      puts "You, #{user.name} already have 2 books checked-out, please return a book."
+      return "Failed request."
+    end
+
+    if book.status == "available"
+      book.borrower = user
+      book.status = "checked-out"
+      user.borrow_book(book)
+      puts "You, #{user.name}, have successfully checked-out #{book.title}."
+    else
+
+      puts "The book, #{book.title}, is not available."
+    end
 
   end
 
@@ -49,14 +55,18 @@ class Borrower
     @name = name
     puts "Welcome to the Library, #{@name}."
     @books = []
-    @borrowed_books = []
   end
 
   def borrowed_books
-    @borrowed_books
+    @books
+  end
+
+  def borrow_book(book)
+    @books << book
   end
 
   def name
+    @name
   end
 
   def borrowed_books_count
