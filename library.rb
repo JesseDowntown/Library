@@ -3,9 +3,9 @@ class Library
     @books = []
   end
 
-  # def books
-
-  # end
+  def books
+    
+  end
 
   def list_books
     @books.each do |book|
@@ -22,7 +22,12 @@ class Library
   end
 
   def available_books
-
+    puts "These books are available:"
+    @books.each do |book|
+      if book.status == "available"
+        puts "#{book.title} by #{book.author}"
+      end
+    end
   end
 
   def add_book(book)
