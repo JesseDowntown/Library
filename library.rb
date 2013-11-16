@@ -14,7 +14,11 @@ class Library
   end
 
   def borrowed_books
-
+    @books.each do |book|
+      if book.status == 'checked-out'
+        puts "The book #{book.title} is currently checked-out by #{book.borrower.name}."
+      end
+    end
   end
 
   def available_books
@@ -29,7 +33,7 @@ class Library
   def check_out(user, book)
 
     if user.borrowed_books.length == 2
-      puts "You, #{user.name} already have 2 books checked-out, please return a book."
+      puts "You, #{user.name}, already have 2 books checked-out, please return a book."
       return "Failed request."
     end
 
