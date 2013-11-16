@@ -74,6 +74,7 @@ class Borrower
   end
 
   def borrowed_books_list
+    @books.each {|book| puts "#{book.title} by #{book.title}"}
   end
 end
 
@@ -97,7 +98,7 @@ class Book
   def status
     @status
   end
-
+ 
   def status=(new_value)
     @status = new_value
   end
