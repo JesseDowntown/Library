@@ -1,10 +1,9 @@
 class Library
+  
+  attr_reader :books
+
   def initialize
     @books = []
-  end
-
-  def books
-    
   end
 
   def list_books
@@ -48,18 +47,21 @@ class Library
       user.borrow_book(book)
       puts "You, #{user.name}, have successfully checked-out #{book.title}."
     else
-
       puts "The book, #{book.title}, is not available."
     end
 
   end
 
   def check_in(book)
+    
   end
  
 end
 
 class Borrower
+
+  attr_accessor :name
+
   def initialize(name)
     @name = name
     puts "Welcome to the Library, #{@name}."
@@ -74,20 +76,22 @@ class Borrower
     @books << book
   end
 
-  def name
-    @name
-  end
-
   def borrowed_books_count
-
+    @books.length
   end
 
   def borrowed_books_list
     @books.each {|book| puts "#{book.title} by #{book.title}"}
   end
+
 end
 
 class Book
+  
+  attr_reader :title, :author
+
+  attr_accessor :edition, :year_published, :status, :borrower
+
   def initialize(title, author)
     @title = title
     @author = author
@@ -96,27 +100,4 @@ class Book
     @borrower = nil
   end
 
-  def title
-    @title
-  end
-
-  def author
-    @author
-  end
-
-  def status
-    @status
-  end
- 
-  def status=(new_value)
-    @status = new_value
-  end
-
-  def borrower
-    @borrower
-  end
-
-  def borrower=(new_value)
-    @borrower = new_value
-  end
 end

@@ -79,4 +79,9 @@ puts "this should only show the available books"
 library.available_books
 puts "-------------------------"
 
+puts "add attributes for year-published and edition to some books"
+puts stranger.edition = "second edition"
+puts karamazov.year_published = "1880"
+puts "-------------------------"
+
 
