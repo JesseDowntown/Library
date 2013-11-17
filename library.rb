@@ -53,7 +53,13 @@ class Library
   end
 
   def check_in(book)
-    
+    user = book.borrower
+    user.return_book(book)
+    book.status = "available"
+    book.borrower = nil
+    puts "Thank you for returning #{book.title}. Please give this book a rating of 10 for 'loved it', 5 for 'it was okay', or 0 for 'hated it'"
+    book.add_rating(gets.chomp)
+    puts "Thank you, #{user.name}, you now have #{user.borrowed_books_count} book(s) checked-out."
   end
  
 end
@@ -84,11 +90,15 @@ class Borrower
     @books.each {|book| puts "#{book.title} by #{book.title}"}
   end
 
+  def return_book(book)
+    @books.delete(book)
+  end
+
 end
 
 class Book
   
-  attr_reader :title, :author
+  attr_reader :title, :author, :avg_rating
 
   attr_accessor :edition, :year_published, :status, :borrower
 
@@ -98,6 +108,17 @@ class Book
     puts "I love the book #{@title}, by #{@author}!"
     @status = "available"
     @borrower = nil
+    @ratings = []
   end
 
+  def add_rating(rating)
+    @ratings << rating.to_i
+  end
+
+  def avg_rating
+    sum = 0
+    @ratings.each {|rating| sum += rating}
+    @avg_rating = sum / @ratings.length
+    puts "The book #{@title} has an average rating of #{@avg_rating}."
+  end
 end
