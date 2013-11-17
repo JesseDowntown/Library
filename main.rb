@@ -84,17 +84,21 @@ puts stranger.edition = "second edition"
 puts karamazov.year_published = "1880"
 puts "-------------------------"
 
-puts "return some books and have a user give them ratings"
+puts "return some books and have a user give them a review/rating"
 library.check_in(feynman)
 library.check_in(finnegan)
 puts "-------------------------"
 
-puts "test rating system by giving Finnegans Wake some more ratings"
+puts "collect more reviews/ratings for Finnegans Wake"
 library.check_out(ricardo, finnegan)
 library.check_in(finnegan)
 puts ''
 library.check_out(ricardo, finnegan)
 library.check_in(finnegan)
-puts ''
+puts "-------------------------"
+
+puts "show the ratings, reviews, and average rating for Finnegans Wake"
+finnegan.ratings_list
+finnegan.reviews_list
 finnegan.avg_rating
 puts"--------------------------"

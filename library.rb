@@ -59,6 +59,14 @@ class Library
     book.borrower = nil
     puts "Thank you for returning #{book.title}. Please give this book a rating of 10 for 'loved it', 5 for 'it was okay', or 0 for 'hated it'"
     book.add_rating(gets.chomp)
+    puts "If you would like to write a review, please do so now, otherwise write 'nope'."
+    user_input = gets.chomp
+      if user_input.downcase == 'nope'
+        return "opt-out"
+      else
+        book.add_review(user_input)
+      end
+
     puts "Thank you, #{user.name}, you now have #{user.borrowed_books_count} book(s) checked-out."
   end
  
@@ -98,7 +106,7 @@ end
 
 class Book
   
-  attr_reader :title, :author, :avg_rating
+  attr_reader :title, :author
 
   attr_accessor :edition, :year_published, :status, :borrower
 
@@ -109,10 +117,15 @@ class Book
     @status = "available"
     @borrower = nil
     @ratings = []
+    @reviews = []
   end
 
   def add_rating(rating)
     @ratings << rating.to_i
+  end
+
+  def ratings_list 
+    @ratings.each {|rating| puts rating}
   end
 
   def avg_rating
@@ -121,4 +134,13 @@ class Book
     @avg_rating = sum / @ratings.length
     puts "The book #{@title} has an average rating of #{@avg_rating}."
   end
+
+  def add_review(review)
+    @reviews << review
+  end
+
+  def reviews_list
+    @reviews.each {|review| puts "#{review}"}
+  end
+
 end
