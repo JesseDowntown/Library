@@ -66,7 +66,6 @@ class Library
       else
         book.add_review(user_input)
       end
-
     puts "Thank you, #{user.name}, you now have #{user.borrowed_books_count} book(s) checked-out."
   end
  
@@ -86,6 +85,18 @@ class Borrower
     @books
   end
 
+# Internal: Borrow a book.
+#
+# book - An instance of the Book class.
+#
+# Examples
+#
+#   borrow_book(mockingbird)
+#   # => @books == [mockingbird]
+#   borrow_book(blue)
+#   # => @books == [mockingbird, blue]
+#
+# Returns nothing
   def borrow_book(book)
     @books << book
   end
@@ -120,25 +131,76 @@ class Book
     @reviews = []
   end
 
+# Internal: Add a rating for this book.
+#
+# rating - string
+#
+# Examples
+#
+#   mockingbird.add_rating("6")
+#   # => @ratings == [6]
+#   mockingbird.add_rating("7")
+#   # => @ ratings == [6, 7]
+# 
+# Returns @ratings
   def add_rating(rating)
     @ratings << rating.to_i
   end
 
+# Public: Print this books ratings.
+#
+# Examples
+#
+#   mockingbird.ratings_list
+#   # => 5
+#        10
+#
+# Returns nothing
   def ratings_list 
     @ratings.each {|rating| puts rating}
   end
 
+# Public: Print a statement telling the user this book's average rating.
+#
+# Examples
+#
+#   mockingbird.add_rating(5)
+#   mockingbird.avg_rating
+#   # => "The book To Kill a Mockingbird has an average rating of 5."
+#
+# Returns nothing
   def avg_rating
     sum = 0
     @ratings.each {|rating| sum += rating}
-    @avg_rating = sum / @ratings.length
-    puts "The book #{@title} has an average rating of #{@avg_rating}."
+    avg_rating = sum / @ratings.length
+    puts "The book #{@title} has an average rating of #{avg_rating}."
   end
 
+# Internal: Add a review for this book.
+#
+# review - string
+#
+# Examples
+#
+#   add_review("Great book.")
+#   # => @reviews == ["Great book."]
+#   add_review("Not worth reading.")
+#   # => @reviews == ["Great book.", "Not worth reading."]
+#
+# Returns nothing
   def add_review(review)
     @reviews << review
   end
 
+# Public: Prints the reviews for this book.
+#
+# Examples
+#
+#   mockingbird.reviews_list
+#   # => "Great book."
+#        "Not worth reading."
+#
+# Returns nothing
   def reviews_list
     @reviews.each {|review| puts "#{review}"}
   end
